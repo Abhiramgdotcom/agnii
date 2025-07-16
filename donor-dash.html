@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Donor Dashboard - Dhamani</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="dashboard-header">
+    <h1>Welcome, <span id="donorName">Donor</span></h1>
+    <button onclick="logout()">Logout</button>
+  </header>
+
+  <main class="dashboard-content">
+    <section class="profile">
+      <h2>Your Profile</h2>
+      <p><strong>Email:</strong> <span id="donorEmail"></span></p>
+      <p><strong>Blood Group:</strong> <span id="donorBlood"></span></p>
+      <p><strong>Location:</strong> <span id="donorLocation"></span></p>
+    </section>
+
+    <section class="history">
+      <h2>Past Donations</h2>
+      <ul id="donationList">
+        <li>Loading donation history...</li>
+      </ul>
+    </section>
+  </main>
+
+  <script>
+    const email = localStorage.getItem("donorEmail");
+    if (!email) {
+      window.location.href = "donor-login.html";
+    }
+
+    fetch(`https://dhamani-backend.onrender.com/api/donor/profile?email=${email}`)
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("donorName").textContent = data.name;
+        document.getElementById("donorEmail").textContent = data.email;
+        document.getElementById("donorBlood").textContent = data.blood_group;
+        document.getElementById("donorLocation").textContent = data.location;
+
+        const list = document.getElementById("donationList");
+        list.innerHTML = "";
+        if (data.donations.length > 0) {
+          data.donations.forEach(d => {
+            const li = document.createElement("li");
+            li.textContent = `${d.date} - ${d.location}`;
+            list.appendChild(li);
+          });
+        } else {
+          list.innerHTML = "<li>No donations yet.</li>";
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        alert("Failed to load profile.");
+      });
+
+    function logout() {
+      localStorage.removeItem("donorEmail");
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>

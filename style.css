@@ -1,0 +1,149 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fef6f6;
+  color: #333;
+  line-height: 1.6;
+}
+
+header.hero {
+  text-align: center;
+  padding: 40px 20px;
+  background-color: #fff;
+}
+
+.hero h1 {
+  font-size: 150px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  margin-bottom: 20px;
+  color: #b30000;
+}
+
+.hero-image {
+  max-width: 50%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.form-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 50px;
+  padding: 40px 20px;
+}
+
+.request-form, .join-community {
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  width: 300px;
+}
+
+.request-form h2, .join-community h2 {
+  color: #b30000;
+  margin-bottom: 20px;
+}
+
+form input, form button {
+  display: block;
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+form button {
+  background-color: #b30000;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #990000;
+}
+
+.join-community button {
+  margin-top: 10px;
+  background-color: #b30000;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.join-community button:hover {
+  background-color: #990000;
+}
+
+.benefits {
+  padding: 40px 20px;
+  background-color: #fff1f1;
+  text-align: center;
+}
+
+.benefits h2 {
+  margin-bottom: 30px;
+  color: #b30000;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  border-left: 6px solid #ff6666;
+  text-align: left;
+}
+
+footer {
+  background-color: #fff;
+  padding: 30px 20px;
+  text-align: center;
+  border-top: 1px solid #ddd;
+}
+
+.newsletter {
+  margin-bottom: 10px;
+}
+
+.newsletter input {
+  padding: 10px;
+  width: 250px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+}
+
+.newsletter button {
+  padding: 10px 15px;
+  background-color: #b30000;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.socials a {
+  margin: 0 10px;
+  color: #b30000;
+  text-decoration: none;
+}

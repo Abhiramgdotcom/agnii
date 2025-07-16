@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recipient Dashboard - Dhamani</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="dashboard-header">
+    <h1>Welcome, <span id="recipientName">Recipient</span></h1>
+    <button onclick="logout()">Logout</button>
+  </header>
+
+  <main class="dashboard-content">
+    <section class="profile">
+      <h2>Your Profile</h2>
+      <p><strong>Email:</strong> <span id="recipientEmail"></span></p>
+      <p><strong>Location:</strong> <span id="recipientLocation"></span></p>
+    </section>
+
+    <section class="search-donors">
+      <h2>Search Donors</h2>
+      <input type="text" id="searchGroup" placeholder="Enter Blood Group">
+      <button onclick="searchDonors()">Search</button>
+      <ul id="donorResults"></ul>
+    </section>
+  </main>
+
+  <script>
+    const email = localStorage.getItem("recipientEmail");
+    if (!email) {
+      window.location.href = "recipient-login.html";
+    }
+
+    fetch(`https://dhamani-backend.onrender.com/api/recipient/profile?email=${email}`)
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("recipientName").textContent = data.name;
+        document.getElementById("recipientEmail").textContent = data.email;
+        document.getElementById("recipientLocation").textContent = data.location;
+      })
+      .catch(err => {
+        console.error(err);
+        alert("Failed to load profile.");
+      });
+
+    function searchDonors() {
+      const group = document.getElementById("searchGroup").value;
+      fetch(`https://dhamani-backend.onrender.com/api/donors?blood_group=${group}`)
+        .then(res => res.json())
+        .then(data => {
+          const list = document.getElementById("donorResults");
+          list.innerHTML = "";
+          if (data.length > 0) {
+            data.forEach(d => {
+              const li = document.createElement("li");
+              li.textContent = `${d.name} (${d.blood_group}) - ${d.location}`;
+              list.appendChild(li);
+            });
+          } else {
+            list.innerHTML = "<li>No matching donors found.</li>";
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          alert("Search failed.");
+        });
+    }
+
+    function logout() {
+      localStorage.removeItem("recipientEmail");
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>
